@@ -27,6 +27,20 @@ const Vote = ({votes, selected}) =>{
     return votesArray
   }
 
+    const mostVotes = (votes) => {
+    let bestAnecdote = 0
+    let score = -1
+    for (let key in votes){
+      if (votes[key] > score){
+        bestAnecdote = key
+        score = votes[key]
+      }
+    }
+    return(
+      bestAnecdote
+    )
+  }
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -50,7 +64,6 @@ const App = () => {
   }
 
   const handleVoteClick = () => {
-
     const newVotes = { ...votes }
     newVotes[selected] += 1
     setVotes(newVotes)
