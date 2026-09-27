@@ -68,6 +68,8 @@ const App = () => {
     newVotes[selected] += 1
     setVotes(newVotes)
   }
+
+  const mv = mostVotes(votes)
     
   return (
     <div>
