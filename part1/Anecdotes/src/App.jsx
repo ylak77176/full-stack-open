@@ -1,15 +1,28 @@
 import { useState } from 'react'
 
+// COMPONENTS
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
-const Anecdote = ({anecdotes, selected}) => {
-    console.log("Anecdotes = ",anecdotes)
-    
-    console.log("selected = ", selected)
+const Anecdote = ({anecdotes, selected}) => <p>{anecdotes[selected]}</p>
+
+// const Vote = ({votes, selected}) => <p>has {votes[selected]} votes</p>
+
+const Vote = ({votes, selected}) =>{
+  console.log("vote", votes[selected])
   return (
-      <p>{anecdotes[selected]}</p>    
+   <p>has {votes[selected]} votes</p> 
   )
 }
+
+// HELPERS
+  // init votes array
+  const votesInit = (length) => {
+    const votesArray = {}
+    for (let i = 0; i < length; i++){
+      votesArray[i] = 0 
+    }
+    return votesArray
+  }
 
 const App = () => {
   const anecdotes = [
@@ -22,21 +35,30 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
+
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(votesInit(anecdotes.length))
+  
 
     // button interaction
-  const randomInt = (max) => getRandomInt(max)
   const getRandomInt = (max) => {
     const newSelected = Math.floor(Math.random() * max)
     setSelected(newSelected)
-    console.log("selected = ",selected)
   }
 
+  const handleVoteClick = () => {
+
+    const newVotes = { ...votes }
+    newVotes[selected] += 1
+    setVotes(newVotes)
+  }
+    
   return (
     <div>
       <Anecdote anecdotes={anecdotes} selected={selected} />
-      <Button onClick={() => getRandomInt(anecdotes.length-1)} text="next anecdote" />
+      <Vote votes={votes} selected={selected} />
+      <Button onClick={handleVoteClick} text="votes" />
+      <Button onClick={() => getRandomInt(anecdotes.length)} text="next anecdote" />
     </div>
   )
 }
