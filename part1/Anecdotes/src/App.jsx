@@ -5,10 +5,13 @@ const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
 const Anecdote = ({anecdotes, selected}) => <p>{anecdotes[selected]}</p>
 
-// const Vote = ({votes, selected}) => <p>has {votes[selected]} votes</p>
-
 const Vote = ({votes, selected}) =>{
-  console.log("vote", votes[selected])
+
+  if (votes[selected] === 0) {
+    return (
+      <p> No votes </p>
+    )
+  }
   return (
    <p>has {votes[selected]} votes</p> 
   )
