@@ -79,7 +79,8 @@ const App = () => {
       <Button onClick={handleVoteClick} text="votes" />
       <Button onClick={() => getRandomInt(anecdotes.length)} text="next anecdote" />
       <h1>Anecdote with most votes</h1>
-      <Anecdote anecdotes={anecdotes} selected={mostVotes(votes)} />
+      <Anecdote anecdotes={anecdotes} selected={mv} />
+      <Vote votes={votes} selected={mv} />
     </div>
   )
 }
