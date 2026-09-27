@@ -71,10 +71,13 @@ const App = () => {
     
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <Anecdote anecdotes={anecdotes} selected={selected} />
       <Vote votes={votes} selected={selected} />
       <Button onClick={handleVoteClick} text="votes" />
       <Button onClick={() => getRandomInt(anecdotes.length)} text="next anecdote" />
+      <h1>Anecdote with most votes</h1>
+      <Anecdote anecdotes={anecdotes} selected={mostVotes(votes)} />
     </div>
   )
 }
