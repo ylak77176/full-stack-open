@@ -56,6 +56,7 @@ const App = () => {
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(votesInit(anecdotes.length))
   
+  const mv = mostVotes(votes)
 
     // button interaction
   const getRandomInt = (max) => {
@@ -68,8 +69,6 @@ const App = () => {
     newVotes[selected] += 1
     setVotes(newVotes)
   }
-
-  const mv = mostVotes(votes)
     
   return (
     <div>
