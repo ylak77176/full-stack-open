@@ -1,9 +1,13 @@
 const Course = ({course}) => {
   const parts = course.parts
-  console.log("parts", parts)
-  console.log("courspart", course.parts)
-  
-  
+
+  const partsSum = parts.reduce(function(sum, part){ 
+    return (
+      sum + part.exercises
+    )
+  }, 0)
+
+ 
   return(
     <div>
       <h1>{course.name}</h1>
@@ -12,6 +16,7 @@ const Course = ({course}) => {
           {part.name} {part.exercises}
         </p>
       )}
+      <b>total of {partsSum} exercices</b>
     </div>
   )
 }
