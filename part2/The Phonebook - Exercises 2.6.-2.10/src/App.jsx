@@ -4,7 +4,7 @@ const Persons = ({ person }) => <li>{person.name} {person.number}</li>
 
 const Filter = ({newSearch, handleSearch}) => 
     <div>
-        <input value={newSearch} onChange={handleSearch} />
+        <p>Filter shown with: <input value={newSearch} onChange={handleSearch} /></p>
     </div>
 const PersonForm = ({addPerson, newName, handleNameChange, newNumber, handleNumberChange}) =>
       <form onSubmit={addPerson}>
