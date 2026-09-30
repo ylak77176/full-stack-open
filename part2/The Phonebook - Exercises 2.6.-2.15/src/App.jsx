@@ -24,7 +24,7 @@ const App = () => {
   const [persons, setPersons] = useState([]) 
 
   const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
+  const [newNumber, setNewNumber] = useState('empty')
   const [newSearch, setNewSearch] = useState('')
 
   useEffect(() => {
@@ -35,27 +35,33 @@ const App = () => {
       })
   }, [])
 
-  const checkName = (newName) => {
-    const names = persons.map(person => person.name)
-    return names.includes(newName)
-  }
-
   const addPerson = (event) => {
     event.preventDefault()
-
-    checkName(newName)
-
-    const isName = checkName(newName)
-    ? alert(`${newName} is already added to phonebook`)
-    : addPersonToList()
+    newName != ""
+      ?adding()
+      : alert(`Name is empty`)
   }
-    const filterItem = () => {
-      return (
-        persons.filter((persons) => persons.name.toLowerCase().includes(newSearch.toLowerCase()))
-      )
-      }
 
-    const personsToShow = filterItem()
+  const adding = () => {
+    const updatePerson = persons.filter(p => p.name === newName)
+    updatePerson[0]
+      ? personExist(updatePerson[0])
+      : addPersonToList()
+  }
+
+  const personExist = (updatePerson) => {
+    updatePerson.number === newNumber
+    ? alert(`${newName} is already added to phonebook`)
+    : updatePersonToList(updatePerson)
+  }
+
+  const filterPersons = () => {
+    return (
+      persons.filter((persons) => persons.name.toLowerCase().includes(newSearch.toLowerCase()))
+    )
+    }
+
+  const personsToShow = filterPersons()
 
   const addPersonToList = () => {
       const nameObject = {
@@ -71,6 +77,22 @@ const App = () => {
       })
   }
 
+    const updatePersonToList = (updatePerson) => {
+
+      if(confirm(`${updatePerson.name} is already added to phonebook, replace the old number with a new one?`)){
+
+        const changedPerson = { ...updatePerson, number: newNumber}
+        personsService
+          .update(updatePerson.id, changedPerson)
+          .then(returnedPerson =>{
+            setPersons(persons.map(updatePerson => updatePerson.name === newName ? returnedPerson : updatePerson))
+            setNewName("")
+            setNewNumber("")   
+            })
+      }
+    }
+    
+  
   const deleteEntry = id => {
     const person = persons.find(n => n.id === id)
 
