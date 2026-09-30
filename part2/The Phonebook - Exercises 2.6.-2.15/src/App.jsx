@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import personsService from './services/persons'
 
 const Persons = ({person, deleteEntry}) => 
-<li>{person.name} {person.number} <button onClick={deleteEntry}>del</button></li>
+<li>{person.name} {person.number} <button onClick={deleteEntry}>delete</button></li>
 
 const Filter = ({newSearch, handleSearch}) => 
     <div>
