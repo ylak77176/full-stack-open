@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-
 import personsService from './services/persons'
 
-
-const Persons = ({ person }) => <li>{person.name} {person.number}</li>
+const Persons = ({person, deleteEntry}) => 
+<li>{person.name} {person.number} <button onClick={deleteEntry}>del</button></li>
 
 const Filter = ({newSearch, handleSearch}) => 
     <div>
         <p>Filter shown with: <input value={newSearch} onChange={handleSearch} /></p>
     </div>
+
 const PersonForm = ({addPerson, newName, handleNameChange, newNumber, handleNumberChange}) =>
       <form onSubmit={addPerson}>
         <div>
@@ -21,14 +20,12 @@ const PersonForm = ({addPerson, newName, handleNameChange, newNumber, handleNumb
         </div>
       </form>
 
-
 const App = () => {
   const [persons, setPersons] = useState([]) 
 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
-
 
   useEffect(() => {
     personsService
@@ -37,8 +34,6 @@ const App = () => {
         setPersons(initialPersons)
       })
   }, [])
-
-
 
   const checkName = (newName) => {
     const names = persons.map(person => person.name)
@@ -70,10 +65,23 @@ const App = () => {
     personsService
       .create(nameObject)
       .then(returnedPerson =>{
-        setPersons(persons.concat(nameObject))
+        setPersons(persons.concat(returnedPerson))
         setNewName("")
         setNewNumber("")       
       })
+  }
+
+  const deleteEntry = id => {
+    const person = persons.find(n => n.id === id)
+
+    confirm(`Delete ${person.name}`)
+    ? personsService
+      .remove(person.id)
+      .then(() => {
+        setPersons(persons.filter(n => n.id !== id))
+        }
+      )
+    : persons
   }
 
   const handleNameChange = (event) => {
@@ -107,7 +115,7 @@ const App = () => {
       
       <ul>
         {personsToShow.map(person => 
-          <Persons key={person.id} person={person} />
+          <Persons key={person.id} person={person} deleteEntry={() => deleteEntry(person.id)}/>
         )}
       </ul>
 

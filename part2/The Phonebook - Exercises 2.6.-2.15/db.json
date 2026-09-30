@@ -1,16 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": "1"
-    },
-    {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": "2"
-    },
-    {
       "name": "Dan Abramov",
       "number": "12-43-234345",
       "id": "3"
@@ -24,6 +14,21 @@
       "name": "galgadot",
       "number": "123456498",
       "id": "Vz6uC59SLzc"
+    },
+    {
+      "name": "Robert Debilo",
+      "number": "123465798",
+      "id": "oGwlMAORbIU"
+    },
+    {
+      "name": "Rikko Soffredi",
+      "number": "9696969696",
+      "id": "HokqApzbEe4"
+    },
+    {
+      "name": "pablo lecouloir",
+      "number": "123465798",
+      "id": "ckxDweURbtQ"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
