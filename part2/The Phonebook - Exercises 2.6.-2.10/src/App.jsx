@@ -27,6 +27,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
 
+
+
   const getPersons = () => {
     console.log('Effect')
     axios
