@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import personsService from './services/persons'
+import './index.css'
+import Notification from './components/Notification'
 
 const Persons = ({person, deleteEntry}) => 
 <li>{person.name} {person.number} <button onClick={deleteEntry}>delete</button></li>
@@ -20,12 +22,13 @@ const PersonForm = ({addPerson, newName, handleNameChange, newNumber, handleNumb
         </div>
       </form>
 
+
 const App = () => {
   const [persons, setPersons] = useState([]) 
-
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('empty')
   const [newSearch, setNewSearch] = useState('')
+  const [validationMessage, setValidationMessage] = useState(null)
 
   useEffect(() => {
     personsService
@@ -34,6 +37,13 @@ const App = () => {
         setPersons(initialPersons)
       })
   }, [])
+
+  const ValidationNotification = (message) =>{
+        setValidationMessage(message)
+        setTimeout(() => {
+        setValidationMessage(null)
+        }, 5000)
+      }
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -75,6 +85,7 @@ const App = () => {
         setNewName("")
         setNewNumber("")       
       })
+    ValidationNotification(`Added ${newName}`)
   }
 
     const updatePersonToList = (updatePerson) => {
@@ -119,8 +130,10 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
-
+      <h1>Phonebook</h1>
+      <div style={{height: '45px'}}>
+        <Notification message={validationMessage} />
+      </div>
       <Filter newSearch={newSearch} handleSearch={handleSearch}/>
 
       <h2>Add a new contact</h2>
