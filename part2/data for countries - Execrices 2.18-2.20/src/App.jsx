@@ -1,6 +1,48 @@
 import { useState, useEffect } from 'react'
-
 import countryService from './services/countries'
+
+const Weather = ({city}) => {
+  const [lat, setLat] = useState(null)
+  const [lon, setLon] = useState(null)
+  const [temp, setTemp] = useState(0)
+  const [icon, setIcon] = useState(null)
+  const [windSpeed, setWindSpeed] = useState(0)
+
+useEffect(() => {
+
+  if (city){
+    countryService
+      .getPosition(city)
+      .then(position =>{
+        const newLat = position[0].lat 
+        const newLon = position[0].lon
+        setLat(newLat)
+        setLon(newLon) 
+        }
+      )
+
+  }
+}, [city])
+
+if (lat){
+    countryService
+      .getMeteo({lat, lon})
+      .then(weather =>{
+        setTemp(weather.main.temp - 273.15) 
+        setIcon(weather.weather[0].icon)
+        setWindSpeed(weather.wind.speed)
+        console.log("icon", weather.weather[0].icon)  
+        console.log(weather)
+      })
+}
+  return(
+  <div>
+    <h2>Weather in {city}</h2>
+    <img src={`https://openweathermap.org/payload/api/media/file/${icon}.png`} alt=''/>
+    <p>Temperature {temp.toFixed(1)} Celsius</p>
+    <p>Wind {windSpeed.toFixed(1)} m/s</p>
+  </div>
+  )}
 
 const Search = ({newSearch, handleSearch}) => 
     <div>
@@ -8,22 +50,19 @@ const Search = ({newSearch, handleSearch}) =>
     </div>
 
 const Languages = ({languages}) =>{
-  console.log("languages", languages);
 
-  
   return(
     <div>
       <ul>
     {languages.map(language => 
-        <li>{language}</li>
+        <li key={language} >{language}</li>
       )}
       </ul>
     </div>   
   )
 }
 const Country = (props) => {
-  console.log("info", props.country.name.common);
-  
+
   return (
     <div>
       <h1>{props.country.name.common}</h1>
@@ -35,12 +74,14 @@ const Country = (props) => {
         <Languages languages={Object.values(props.country.languages)} />
 
       <img src={props.country.flags.png} />
+      <Weather city={props.country.capital}/>
+
     </div>
   )
 }
 
 const SearchResult = ({searchResult}) => {
-    console.log("taille", searchResult.length,"resultat" ,searchResult);
+
     if (searchResult.length >= 10){
       return <p>Too many matches, specify another filter</p> 
       }
@@ -82,7 +123,7 @@ const App = () => {
           .toLowerCase()
           .includes(newSearch.toLowerCase())
         )
-      // console.log("result", includesResult)
+
       return includesResult
     }
   }
@@ -91,7 +132,6 @@ const App = () => {
   return (
     <>
       <div>
-
         <Search newSearch={newSearch} handleSearch={handleSearch} />
       </div>
       
