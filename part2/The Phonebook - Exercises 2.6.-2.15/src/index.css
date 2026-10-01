@@ -3,26 +3,23 @@ h1 {
 }
 
 .error {
-  color: rgb(216, 216, 216);
-  background: rgb(255, 46, 46);
-  font-size: 18px;
-  border-style: dashed;
+  color: rgb(255, 0, 0);
+  background: rgb(226, 223, 223);
+  font-size: 20px;
+  border-style: solid;
   border-radius: 15px;
-  border-color: rgb(255, 255, 255);
+  border-color: rgb(255, 0, 0);
   padding: 15px;
   margin-bottom: 10px;
-  text-align: center;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .validation {
-  color: rgb(0, 0, 0);
+  color: rgb(0, 155, 21);
   background: rgb(187, 252, 174);
-  font-size: 18px;
+  font-size: 20px;
   border-style: solid;
   border-radius: 15px;
   border-color: rgb(0, 155, 21);
   padding: 15px;
   margin-bottom: 10px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }

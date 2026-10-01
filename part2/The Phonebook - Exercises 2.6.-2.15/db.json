@@ -32,33 +32,13 @@
     },
     {
       "name": "Dan Abramovi",
-      "number": "555",
-      "id": "kGNhCfuAP_w"
-    },
-    {
-      "name": "Leo",
-      "number": "123456",
-      "id": "xKPwxZtW1Ks"
+      "number": "777",
+      "id": "m6Sa_8qd94E"
     },
     {
       "name": "roberto",
-      "number": "empty",
-      "id": "vgOqPaFc6EA"
-    },
-    {
-      "name": "test",
-      "number": "",
-      "id": "nNxOza1qlVE"
-    },
-    {
-      "name": "lolo",
-      "number": "",
-      "id": "C5bVNdvEQbU"
-    },
-    {
-      "name": "poto",
-      "number": "",
-      "id": "Z32UvEVXjFA"
+      "number": "444",
+      "id": "3ExWeiSYP74"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
