@@ -20,7 +20,6 @@ useEffect(() => {
         setLon(newLon) 
         }
       )
-
   }
 }, [city])
 
@@ -31,8 +30,6 @@ if (lat){
         setTemp(weather.main.temp - 273.15) 
         setIcon(weather.weather[0].icon)
         setWindSpeed(weather.wind.speed)
-        console.log("icon", weather.weather[0].icon)  
-        console.log(weather)
       })
 }
   return(
@@ -81,22 +78,39 @@ const Country = (props) => {
 }
 
 const SearchResult = ({searchResult}) => {
+  // const [countries, setCountries] = useState(searchResult) 
+  const [selectedCountry, setSelectedCountry] = useState(null)
+  // useEffect(() => {
+  //   setCountries(searchResult)
+  // }, [searchResult])
+  useEffect(() => {
+    setSelectedCountry(null)
+  }, [searchResult])
 
-    if (searchResult.length >= 10){
-      return <p>Too many matches, specify another filter</p> 
-      }
-    else if (searchResult.length === 1){
+
+    if (searchResult.length === 1){
       return(
       <div>
         <Country country={searchResult[0]} />
       </div>
       )
     }
+    else if (selectedCountry){
+      return(
+      <div>
+        <Country country={selectedCountry} />
+      </div>
+      )
+    }
+    else if (searchResult.length >= 10){
+      return <p>Too many matches, specify another filter</p> 
+      }
+
     else {
       return (
         <ul>
           {searchResult.map(country =>
-            <li key={country.altSpellings[0]} > {country.name.common}</li> 
+            <li key={country.altSpellings[0]} > {country.name.common} <button onClick={() => setSelectedCountry(country) }>Show</button></li> 
           )}  
         </ul>
       )
@@ -127,7 +141,6 @@ const App = () => {
       return includesResult
     }
   }
-
 
   return (
     <>
