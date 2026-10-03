@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 
 
-console.log('hello world')
+
+console.log(Date(Date.now()).toString())
 
 let persons = 
 [
@@ -29,13 +30,22 @@ let persons =
 ]
 
 app.get('/', (request, response) => {
-  response.send('<h1>Hello fellow React engineers !</h1>')
+
+  response.send("Hello :o !")
 })
 
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
+app.get('/api/info', (request, response) => {
+    const date = Date(Date.now()).toString()
+    const message = `
+    <p>Phonebook as info for ${persons.length} people</p>
+    <p>HELL${date}</p>`
+
+  response.send(message)
+})
 
 const PORT = 3001
 app.listen(PORT, () => {
