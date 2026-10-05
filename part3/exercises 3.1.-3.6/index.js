@@ -27,6 +27,20 @@ let persons =
     }
 ]
 
+
+// Helper
+const generateId = () => {
+  const maxId = persons.length > 0
+  ? Math.max(...persons.map(person => Number(person.id)))
+  : 0
+
+  return String(maxId + 1)
+}
+const isNameExist = (name) => persons.find(person => person.name === name)
+
+
+// Reponse 
+
 app.get('/', (request, response) => {
 
   response.send("Hello :o !")
@@ -63,17 +77,35 @@ app.delete('/api/persons/:id', (request, response) => {
 
 })
 
+
 app.post('/api/persons', (request, response) => {
-  const maxId = persons.length > 0
-  ? Math.max(...persons.map(person => Number(person.id)))
-  : 0
+
+  const body = request.body
+
+  if (!body.name){
+    return response.status(400).json({
+      error: 'Must enter a name'
+    })
+  }
+  else if(!body.number){
+    return response.status(400).json({
+      error: 'Must enter a number'
+    })
+  }
+  else if(isNameExist(body.name)){
+    return response.status(400).json({
+      error: 'name must be unique'
+    })
+  }
 
 
-  const person = request.body
-  person.id = String(maxId + 1)
+  const person = {
+    id: generateId(),
+    name: body.name,
+    number: body.number
+  }
 
   persons = persons.concat(person)
-  console.log(person)
   response.json(person)
 })
 
