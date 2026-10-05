@@ -1,9 +1,7 @@
 const express = require('express')
 const app = express()
 
-
-
-console.log(Date(Date.now()).toString())
+app.use(express.json())
 
 let persons = 
 [
@@ -48,7 +46,6 @@ app.get('/api/persons/:id', (request, response) => {
   }
 })
 
-
 app.get('/info', (request, response) => {
     const date = Date(Date.now()).toString()
     const message = `
@@ -64,6 +61,20 @@ app.delete('/api/persons/:id', (request, response) => {
 
   response.status(204).end()
 
+})
+
+app.post('/api/persons', (request, response) => {
+  const maxId = persons.length > 0
+  ? Math.max(...persons.map(person => Number(person.id)))
+  : 0
+
+
+  const person = request.body
+  person.id = String(maxId + 1)
+
+  persons = persons.concat(person)
+  console.log(person)
+  response.json(person)
 })
 
 
