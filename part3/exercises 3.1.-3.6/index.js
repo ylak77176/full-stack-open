@@ -1,7 +1,16 @@
-const express = require('express')
-const app = express()
+var express = require('express')
+var morgan = require('morgan')
 
+const app = express()
 app.use(express.json())
+
+morgan.token('body', function getBody (req) {
+  return JSON.stringify(req.body)
+})
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+
+
 
 let persons = 
 [
@@ -36,6 +45,7 @@ const generateId = () => {
 
   return String(maxId + 1)
 }
+
 const isNameExist = (name) => persons.find(person => person.name === name)
 
 
@@ -104,6 +114,7 @@ app.post('/api/persons', (request, response) => {
     name: body.name,
     number: body.number
   }
+
 
   persons = persons.concat(person)
   response.json(person)
