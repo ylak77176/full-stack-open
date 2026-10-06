@@ -13,14 +13,12 @@
     "start": "node index.js",
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "dev": "node --watch index.js",
-
-    "build:ui": "rm -rf dist && cd ../notes-frontend/ && npm run build && cp -r dist ../notes-backend",
+    "build:ui": "@powershell Remove-Item -Recurse -Force dist && cd ../../part2/courses/ && npm run build && @powershell Copy-Item dist -Recurse ../courses",
     "deploy": "fly deploy",
-    "deploy:full": "npm run build:ui && npm run deploy",    
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "logs:prod": "fly logs"
   },
   "dependencies": {
-    "cors": "^2.8.6",
     "express": "^5.2.1"
   }
 }
