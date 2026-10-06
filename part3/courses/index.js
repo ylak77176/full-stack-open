@@ -6,6 +6,8 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('dist'))
 
+const baseUrl = '/api/notes'
+
 let notes = [
   {
     id: "1",
