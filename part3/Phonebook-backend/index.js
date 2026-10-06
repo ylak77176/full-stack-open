@@ -55,10 +55,6 @@ const isNameExist = (name) => persons.find(person => person.name === name)
 
 // Reponse 
 
-app.get('/', (request, response) => {
-
-  response.send("Hello :o !")
-})
 
 app.get('/api/persons', (request, response) => {
   response.json(persons)
