@@ -10,7 +10,7 @@ lerna-debug.log*
 node_modules
 dist-ssr
 *.local
-credential
+
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +22,5 @@ credential
 *.njsproj
 *.sln
 *.sw?
+credential
+.env
