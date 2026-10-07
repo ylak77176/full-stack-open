@@ -9,7 +9,7 @@ const password = process.argv[2]
 const name = process.argv[3]
 const number = process.argv[4]
 
-const url = `mongodb+srv://pokeball123456798_db_user:uUwadLhNUGH4jSMG@cluster0.wbcovzw.mongodb.net/phonebook?retryWrites=true&w=majority&appName=Cluster0`
+const url = `mongodb+srv://pokeball123456798_db_user:${password}@cluster0.wbcovzw.mongodb.net/phonebook?retryWrites=true&w=majority&appName=Cluster0`
 
 mongoose.set('strictQuery',false)
 
@@ -26,10 +26,18 @@ const person = new Person({
   name: name,
   number: number,
 })
+if (name && number){
+  person.save().then(result => {
+    console.log(`added ${name} number ${number} to phonebook`)
+    mongoose.connection.close()
+  })
+} else if (password) {
+  Person.find({}).then(result => {
+    result.forEach(note => {
+      console.log(note)
+    })
+    mongoose.connection.close()
+  })
+}
 
-
-person.save().then(result => {
-  console.log(`added ${name} number ${number} to phonebook`)
-  mongoose.connection.close()
-})
 
