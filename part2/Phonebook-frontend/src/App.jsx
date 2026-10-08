@@ -55,9 +55,9 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    newName != ""
+    newName != "" && newNumber != ""
       ?adding()
-      : alert(`Name is empty`)
+      : alert(`Name or number are empty`)
   }
 
   const adding = () => {

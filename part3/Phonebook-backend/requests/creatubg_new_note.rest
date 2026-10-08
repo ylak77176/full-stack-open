@@ -5,12 +5,11 @@ GET http://localhost:3001/api/persons/
 ###
 
 
-POST http://localhost:3001/api/persons/ HTTP/1.1
+PUT http://localhost:3001/api/persons/6ac78c1c4ac3102b2e1306ee HTTP/1.1
 content-type: application/json
 
 {
-    "name": "helloworld",
-    "number": "012346598"
+    "number": "1326549879"
 }
 
 ###
@@ -32,5 +31,10 @@ content-type: application/json
 
     "name": "solotop"
 }
+
+###
+
+DELETE http://localhost:3001/api/persons/6ac6278c01fcdd4727df7164 HTTP/1.1
+
 
 
