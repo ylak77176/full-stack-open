@@ -1,31 +1,15 @@
 require('dotenv').config
 const express = require('express')
+const Note = require('./models/note')
+
 const app = express()
 
-const Note = require('./models/note')
 
 app.use(express.json())
 app.use(express.static('dist'))
 
-const baseUrl = '/api/notes'
 
-let notes = [
-  {
-    id: "1",
-    content: "HTML is easy",
-    important: true
-  },
-  {
-    id: "2",
-    content: "Browser can execute only JavaScript",
-    important: false
-  },
-  {
-    id: "3",
-    content: "GET and POST are the most important methods of HTTP protocol DICK",
-    important: true
-  }
-]
+let notes = []
 
 app.get('/api/notes', (request, response) => {
   Note.find({}).then(notes => {
@@ -75,16 +59,6 @@ app.post('/api/notes', (request, response) => {
   })
 })
 
-  const note = {
-    content: body.content,
-    important: body.important || false,
-    id: generateId(),
-  }
-
-  notes = notes.concat(note)
-
-  response.json(note)
-})
 
 const PORT = process.env.PORT || 3001
   app.listen(PORT, () => {
