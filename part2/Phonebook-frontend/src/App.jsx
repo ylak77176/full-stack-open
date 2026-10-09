@@ -94,6 +94,10 @@ const App = () => {
         setNewNumber("")    
         ValidationNotification(`Added ${newName}`)   
       })
+      .catch(error => {
+        return (errorNotification(`${error.response.data.error}`))
+        console.log(error.response.data.error)
+      })
   }
 
     const updatePersonToList = (updatePerson) => {
