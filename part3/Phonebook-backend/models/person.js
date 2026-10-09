@@ -18,7 +18,16 @@ mongoose
     minLength: 3,
     required: true
   },
-  number: String,
+  number:{
+    type: String,
+    validate:{
+      validator: function(v) {
+        return /^\d{2}-\d{6}$/.test(v);
+      },
+    },
+    required: [true, 'User phone number required']
+  
+  },
 })
 
 personSchema.set('toJSON', {
