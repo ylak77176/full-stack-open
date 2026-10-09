@@ -12,6 +12,7 @@ dist-ssr
 *.local
 credential
 
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +23,6 @@ credential
 *.njsproj
 *.sln
 *.sw?
+credential
+.env
+

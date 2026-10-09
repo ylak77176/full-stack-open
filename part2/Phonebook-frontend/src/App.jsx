@@ -55,9 +55,9 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    newName != ""
+    newName != "" && newNumber != ""
       ?adding()
-      : alert(`Name is empty`)
+      : alert(`Name or number are empty`)
   }
 
   const adding = () => {
@@ -94,6 +94,9 @@ const App = () => {
         setNewNumber("")    
         ValidationNotification(`Added ${newName}`)   
       })
+      .catch(error => {
+        return (errorNotification(`${error.response.data.error}`))
+      })
   }
 
     const updatePersonToList = (updatePerson) => {
@@ -109,8 +112,8 @@ const App = () => {
             setNewNumber("")
             ValidationNotification(`Updated ${newName}`) 
             })
-          .catch(error =>{
-            errorNotification(`Information of ${newName} has already been removed from server`)
+          .catch(error => {
+            return (errorNotification(`${error.response.data.error}`))
           })
       }
     }
