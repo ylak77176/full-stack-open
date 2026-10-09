@@ -96,7 +96,6 @@ const App = () => {
       })
       .catch(error => {
         return (errorNotification(`${error.response.data.error}`))
-        console.log(error.response.data.error)
       })
   }
 
@@ -113,8 +112,8 @@ const App = () => {
             setNewNumber("")
             ValidationNotification(`Updated ${newName}`) 
             })
-          .catch(error =>{
-            errorNotification(`Information of ${newName} has already been removed from server`)
+          .catch(error => {
+            return (errorNotification(`${error.response.data.error}`))
           })
       }
     }

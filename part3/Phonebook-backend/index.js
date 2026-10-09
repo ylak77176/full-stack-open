@@ -69,15 +69,6 @@ app.post('/api/persons', (request, response, next) => {
 
   const body = request.body
 
-  // if (!body.name) {
-  //   return response.status(400).json({ error: 'content missing' })
-  // }
-  // else if(!body.number){
-  //   return response.status(400).json({
-  //     error: 'Must enter a number'
-  //   })
-  // }
-
   Person.findOne({ name: body.name })
     .then(existingPerson => {
       if (existingPerson) {
@@ -98,7 +89,7 @@ app.post('/api/persons', (request, response, next) => {
 
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
-  Person.findByIdAndUpdate(request.params.id,{ number: body.number} , { new: true })
+  Person.findByIdAndUpdate(request.params.id,{ number: body.number} , { new: true, runValidators: true })
       .then(result => {
         response.json(result)
       })
