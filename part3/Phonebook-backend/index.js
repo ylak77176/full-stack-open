@@ -26,7 +26,7 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
-// Reponse 
+// Reponse
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(notes => {
     response.json(notes)
@@ -36,20 +36,20 @@ app.get('/api/persons', (request, response) => {
 app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
     .then(person => {
-        if (person){
-          response.json(person)
-        } else {
-          response.status(404).end()
-        }
-      })
+      if (person){
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
+    })
     .catch(error => {next(error)
     })
 })
 
 app.get('/info', (request, response) => {
 
-    const date = Date(Date.now()).toString()
-    const message = `
+  const date = Date(Date.now()).toString()
+  const message = `
     <p>Phonebook as info for ${Person.length} people</p>
     <p>${date}</p>`
 
@@ -59,7 +59,7 @@ app.get('/info', (request, response) => {
 app.delete('/api/persons/:id', (request, response) => {
   const id = request.params.id
   Person.findByIdAndDelete(id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
 
@@ -84,16 +84,16 @@ app.post('/api/persons', (request, response, next) => {
         response.json(savedPerson)
       })
     })
-    .catch(error => next(error)) 
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
-  Person.findByIdAndUpdate(request.params.id,{ number: body.number} , { new: true, runValidators: true })
-      .then(result => {
-        response.json(result)
-      })
-      .catch(error => next(error))
+  Person.findByIdAndUpdate(request.params.id,{ number: body.number } , { new: true, runValidators: true })
+    .then(result => {
+      response.json(result)
+    })
+    .catch(error => next(error))
 })
 
 
