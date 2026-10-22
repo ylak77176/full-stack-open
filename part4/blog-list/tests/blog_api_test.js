@@ -78,6 +78,14 @@ const blogsAtEnd = await helper.blogsInDb()
   assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
 })
 
+test('blog posts have an id property', async () => {
+  const response = await api.get('/api/blogs')
+
+  response.body.forEach(blog => {
+    assert('id' in blog)
+  })
+})
+
 after(async () => {
   await mongoose.connection.close()
 })
