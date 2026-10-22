@@ -49,6 +49,7 @@ test('a valid blog can be added ', async () => {
     author: 'String',
     url: 'String',
     likes: 12345,
+    
   }
 
   await api
@@ -85,6 +86,7 @@ test('blog posts have an id property', async () => {
     assert('id' in blog)
   })
 })
+
 
 after(async () => {
   await mongoose.connection.close()
