@@ -6,6 +6,7 @@ const app = require('../app')
 const Blog = require('../models/blog')
 const helper = require('./test_helper')
 const { title } = require('node:process')
+const { log } = require('node:console')
 const api = supertest(app)
 
 
@@ -49,7 +50,7 @@ test('a valid blog can be added ', async () => {
     author: 'String',
     url: 'String',
     likes: 12345,
-    
+
   }
 
   await api
@@ -85,6 +86,19 @@ test('blog posts have an id property', async () => {
   response.body.forEach(blog => {
     assert('id' in blog)
   })
+})
+test('blog posts likes default to 0', async () => {
+  const newBlog = {     
+    title: 'noLikes',
+    author: 'String',
+    url: 'String',
+  }
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+
+  assert.strictEqual(response.body.likes, 0)
 })
 
 

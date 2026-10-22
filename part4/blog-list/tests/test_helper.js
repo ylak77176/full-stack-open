@@ -16,7 +16,8 @@ const initialBlogs = [
 ]
 
 const nonExistingId = async () => {
-  const blog = new Blog({     title: 'String',
+  const blog = new Blog({     
+    title: 'String',
     author: 'String',
     url: 'String',
     likes: 12345, })
