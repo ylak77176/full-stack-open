@@ -116,7 +116,29 @@ describe('deletion of a blog', () => {
     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
   })
 })
+describe('save change of a blog', () => {
+  test('succeeds with status valid likes value change', async () => {
 
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToChange = blogsAtStart[0]
+
+    const newBlog = {     
+    title: 'noLikes',
+    author: 'String',
+    url: 'String',
+    likes: 9999,
+    }
+
+    await api
+        .put(`/api/blogs/${blogToChange.id}`)
+        .send(newBlog)
+        .expect(200)
+
+    const getBlog = await api.get(`/api/blogs/${blogToChange.id}`)
+
+    assert.strictEqual(getBlog.body.likes, 9999)
+  })
+})
 
 after(async () => {
   await mongoose.connection.close()
